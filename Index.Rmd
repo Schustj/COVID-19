@@ -3,11 +3,17 @@ title: "Index.Rmd"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, echo = FALSE}
+library(tidyverse)
+library(stringr)
+library(choroplethr)
+library(choroplethrMaps)
+library(ggplot2)
+library(dplyr)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r library}
+```{r importing, message = FALSE, echo = FALSE}
 
 
 ```
