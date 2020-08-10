@@ -102,7 +102,7 @@ deathData2 <- myData %>%
         filter(fips < 57, abbr != "US" & jurisdiction %in% c("New Jersey", "Georgia", "Maryland", "Colorado", "Pennsylvania", "Tennessee", "Louisiana")) %>%
         summarise(region = str_to_lower(jurisdiction), value = Deaths)
 
-write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/deaths_by_state_similar_pop.csv", row.names = FALSE)
+write.csv(deathData2,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/deaths_by_state_similar_pop.csv", row.names = FALSE)
 
 ```
 
