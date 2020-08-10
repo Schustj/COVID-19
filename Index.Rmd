@@ -67,12 +67,12 @@ ggplot(covid19Data2, aes(State, Deaths)) + geom_col(color = "black", fill = "lig
 
 ```{r tidyup, message=FALSE, echo=FALSE, warning=FALSE}
 
-deathData <- myData %>% 
-        rename(Deaths = "Total Death") %>%
+caseData <- myData %>% 
+        rename(Cases = "Total Cases") %>%
         filter(fips < 57, abbr != "US" & jurisdiction %in% c("Michigan", "Ohio", "Wisconsin", "Minnesota", "Illinois", "Indiana", "Kentucky") & !is.na(fips)) %>%
-        summarise(region = str_to_lower(jurisdiction), value = Deaths)
+        summarise(region = str_to_lower(jurisdiction), value = Cases)
 
-write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/deaths_by_state_midwest_coalition.csv", row.names = FALSE)
+write.csv(caseData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/deaths_by_state_midwest_coalition.csv", row.names = FALSE)
 
 ```
 
@@ -80,7 +80,7 @@ write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/deaths_by_s
 
 ```{r choropleth, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", fig.align='center', fig.cap="**Choropleth 1:** Total Deaths from States in the Midwest Coalition"}
 
-state_choropleth(deathData, title = "Total Deaths due to COVID", legend = "Deaths")
+state_choropleth(caseData, title = "Total Cases from COVID", legend = "Cases")
 
 ```
 
@@ -97,12 +97,12 @@ print(summaryData)
 
 ```{r tidyup2, message=FALSE, echo=FALSE, warning=FALSE}
 
-deathData2 <- myData %>% 
-        rename(Deaths = "Total Death") %>%
+caseData2 <- myData %>% 
+        rename(Cases = "Total Cases") %>%
         filter(fips < 57, abbr != "US" & jurisdiction %in% c("New Jersey", "Georgia", "Maryland", "Colorado", "Pennsylvania", "Tennessee", "Louisiana")) %>%
-        summarise(region = str_to_lower(jurisdiction), value = Deaths)
+        summarise(region = str_to_lower(jurisdiction), value = Cases)
 
-write.csv(deathData2,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/deaths_by_state_similar_pop.csv", row.names = FALSE)
+write.csv(caseData2,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/deaths_by_state_similar_pop.csv", row.names = FALSE)
 
 ```
 
@@ -110,7 +110,7 @@ write.csv(deathData2,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/deaths_by_
 
 ```{r choropleth2, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", fig.align='center', fig.cap="**Choropleth 2:** Total Deaths from Comparison States"}
 
-state_choropleth(deathData2, title = "Total Deaths due to COVID", legend = "Deaths")
+state_choropleth(caseData2, title = "Total Cases from COVID", legend = "Cases")
 
 ```
 
@@ -122,9 +122,6 @@ summaryData2 <- myData %>% rename(Deaths = "Total Death") %>% filter(jurisdictio
 print(summaryData2)
 
 ```
-
-
-
 
 
 
