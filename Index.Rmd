@@ -25,11 +25,13 @@ myData2 <- read_csv("raw_data/Provisional_COVID-19_Death_Counts_by_Place_of_Deat
 
 ```
 
- <!-- Manipulating data from myData2 from the CDC to show total deaths due to COVID in Midwest Coalition States. I'm selecting 2 columns that help answer my hypothesis, State and COVID19 Deaths, and renaming COVID19 Deaths to a simpler name "Deaths". After renaming, I'm filtering my data to the Midwest coalition states I've selected for my report. Lastly, I'm running a function to remove any NA's that exist in my dataset. You'll notice I'm saving this data into a new folder "output" after I've manipulated it. --> 
+ <!-- Manipulating data from myData2 from the CDC to show total deaths due to COVID in Midwest Coalition States. I'm selecting 2 columns that help answer my hypothesis, State and COVID19 Deaths, and renaming COVID19 Deaths to a simpler name "Deaths". After renaming, I'm filtering my data to the Midwest coalition states I've selected for my report. Next, I use pivot_wider to change my multiple entries of each state into one entry for each column. I use the sum function to add all the values of Deaths into one number. After organizing the data I add a row name, with rownames() function, of Deaths to the data. Lastly, I'm running a function to remove any NA's that exist in my dataset. You'll notice I'm saving this data into a new folder "output" after I've manipulated it. --> 
 
 ```{r data2stuff, message=FALSE, echo=FALSE, warning=FALSE}
 
-covid19Data <- myData2 %>% select(`State`, `COVID19 Deaths`) %>% rename(Deaths = `COVID19 Deaths`) %>% group_by(State) %>% filter(State %in% c("Michigan", "Ohio", "Wisconsin", "Minnesota", "Illinois", "Indiana", "Kentucky") & !is.na(`Deaths`))
+covid19Data <- myData2 %>% select(`State`, `COVID19 Deaths`) %>% rename(Deaths = `COVID19 Deaths`) %>% group_by(State) %>% filter(State %in% c("Michigan", "Ohio", "Wisconsin", "Minnesota", "Illinois", "Indiana", "Kentucky") & !is.na(`Deaths`)) %>% pivot_wider(names_from = State, values_from = Deaths, values_fn = sum)
+
+rownames(covid19Data) <- "Deaths"
 
 write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/Dth_by_state_midwest_coalition_data2.csv", row.names = FALSE)
 ```
@@ -38,15 +40,17 @@ write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/Dth_by_stat
 
 ```{r ggplotcovid, message=FALSE, echo=FALSE, warning=FALSE}
 
-ggplot(covid19Data, aes(State, Deaths)) + geom_bar() + labs(title = "Midwest Coalition States COVID deaths", x = "State", y = "Deaths")
+ggplot(covid19Data, aes()) + geom_bar() + labs(title = "Midwest Coalition States COVID deaths", x = "State", y = "Deaths") + coord_flip()
 
 ```
 
- <!-- Manipulating data from myData2 from the CDC to show total deaths due to COVID in similar population States. I'm selecting 2 columns that help answer my hypothesis, State and COVID19 Deaths, and renaming COVID19 Deaths to a simpler name "Deaths". After renaming, I'm filtering my data to the similar population states I've selected for my report. Lastly, I'm running a function to remove any NA's that exist in my dataset. You'll notice I'm saving this data into a new folder "output" after I've manipulated it. --> 
+ <!-- Manipulating data from myData2 from the CDC to show total deaths due to COVID in similar population States. I'm selecting 2 columns that help answer my hypothesis, State and COVID19 Deaths, and renaming COVID19 Deaths to a simpler name "Deaths". After renaming, I'm filtering my data to the similar population states I've selected for my report. Next, I use pivot_wider to change my multiple entries of each state into one entry for each column. I use the sum function to add all the values of Deaths into one number. After organizing the data I add a row name, with rownames() function, of Deaths to the data. Lastly, I'm running a function to remove any NA's that exist in my dataset. You'll notice I'm saving this data into a new folder "output" after I've manipulated it. --> 
 
 ```{r data2stuff2, message=FALSE, echo=FALSE, warning=FALSE}
 
-covid19Data2 <- myData2 %>% select(`State`, `COVID19 Deaths`) %>% rename(Deaths = `COVID19 Deaths`) %>% filter(State %in% c("New Jersey", "Georgia", "Maryland", "Colorado", "Pennsylvania", "Tennessee", "Louisiana") & !is.na(`Deaths`))
+covid19Data2 <- myData2 %>% select(`State`, `COVID19 Deaths`) %>% rename(Deaths = `COVID19 Deaths`) %>% filter(State %in% c("New Jersey", "Georgia", "Maryland", "Colorado", "Pennsylvania", "Tennessee", "Louisiana") & !is.na(`Deaths`)) %>% pivot_wider(names_from = State, values_from = Deaths, values_fn = sum)
+
+rownames(covid19Data2) <- "Deaths"
 
 write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/Dth_by_state_similar_pop_data2.csv", row.names = FALSE)
 ```
