@@ -2,6 +2,7 @@
 title: "Index.Rmd"
 output: html_document
 ---
+ <!-- This initial chunk is loading all of the packages I'll be utilizing for my COVID report. Example, I'll be using the package "choroplethr" to set up choropleth maps as a form of graph. --> 
 
 ```{r setup, include=FALSE, echo = FALSE}
 library(tidyverse)
@@ -15,7 +16,7 @@ library(kableExtra)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
- <!-- This chunk is uploading all the databases to my Rmd file. Files from the CDC.   --> 
+ <!-- This chunk is uploading all the databases to my Rmd file. Files are from the CDC. I elected to use two different datasets from the CDC and you'll see below the ways I've elected to manipulate the datasets chosen.   --> 
 
 ```{r importing, message = FALSE, echo = FALSE}
 data(state.regions)
@@ -24,7 +25,7 @@ myData2 <- read_csv("raw_data/Provisional_COVID-19_Death_Counts_by_Place_of_Deat
 
 ```
 
- <!-- Manipulating data from myData2 from the CDC to show total deaths due to COVID in Midwest Coalition States --> 
+ <!-- Manipulating data from myData2 from the CDC to show total deaths due to COVID in Midwest Coalition States. I'm selecting 2 columns that help answer my hypothesis, State and COVID19 Deaths, and renaming COVID19 Deaths to a simpler name "Deaths". After renaming, I'm filtering my data to the Midwest coalition states I've selected for my report. Lastly, I'm running a function to remove any NA's that exist in my dataset. You'll notice I'm saving this data into a new folder "output" after I've manipulated it. --> 
 
 ```{r data2stuff, message=FALSE, echo=FALSE, warning=FALSE}
 
@@ -41,7 +42,7 @@ ggplot(covid19Data, aes(State, Deaths)) + geom_bar() + labs(title = "Midwest Coa
 
 ```
 
- <!-- Manipulating data from myData2 from the CDC to show total deaths due to COVID in similar population States --> 
+ <!-- Manipulating data from myData2 from the CDC to show total deaths due to COVID in similar population States. I'm selecting 2 columns that help answer my hypothesis, State and COVID19 Deaths, and renaming COVID19 Deaths to a simpler name "Deaths". After renaming, I'm filtering my data to the similar population states I've selected for my report. Lastly, I'm running a function to remove any NA's that exist in my dataset. You'll notice I'm saving this data into a new folder "output" after I've manipulated it. --> 
 
 ```{r data2stuff2, message=FALSE, echo=FALSE, warning=FALSE}
 
@@ -58,7 +59,7 @@ ggplot(covid19Data2, aes(State, Deaths)) + geom_bar() + labs(title = "Midwest Co
 
 ```
 
- <!-- In this chunk I am manipulating a data set into Midwest Coalition states and making a choropleth representation. --> 
+ <!-- In this chunk I am manipulating a data set into Midwest Coalition states and making a choropleth representation. I'm renaming "Total Death" to "Deaths" for simplicity in writing my code. I've filtered my data set into my 7 coalition states and changed the case to lower case with the str_to_lower function on jurisdiction. Lastly, I'm saving this csv into output folder now that I've manipulated the raw data. --> 
 
 ```{r tidyup, message=FALSE, echo=FALSE, warning=FALSE}
 
@@ -71,7 +72,7 @@ write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/deaths_by_s
 
 ```
 
- <!-- In this chunk I'm taking my manipulated data and making my choropleth map for Midwest coalition states. --> 
+ <!-- In this chunk I'm taking my manipulated data and making my choropleth map for Midwest coalition states. I've given the graph a nice title and labeled my legend "Deaths" to give viewers a way to decipher my image. --> 
 
 ```{r choropleth, message=FALSE, echo=FALSE, warning=FALSE, fig.align='center', fig.cap="**Choropleth 1:** Total Deaths from States in the Midwest Coalition"}
 
@@ -88,7 +89,7 @@ print(summaryData)
 
 ```
 
- <!-- In this chunk I am manipulating a data set into comparison states and making a choropleth representation. --> 
+ <!-- In this chunk I am manipulating a data set into comparison states and making a choropleth representation. I'm renaming "Total Death" to "Deaths" for simplicity in writing my code just like with my Midwest states. I've filtered my data set into my 7 similar pop states and changed the case to lower case with the str_to_lower function on jurisdiction. Lastly, I'm saving this csv into my output folder now that I've manipulated the raw data. --> 
 
 ```{r tidyup2, message=FALSE, echo=FALSE, warning=FALSE}
 
@@ -101,7 +102,7 @@ write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/deaths_by_s
 
 ```
 
- <!-- In this chunk I'm taking my manipulated data and making my choropleth map for my selected comparison states. --> 
+ <!-- In this chunk I'm taking my manipulated data and making my choropleth map for my selected comparison states. I've given the graph a nice title and labeled my legend "Deaths" to give viewers a way to decipher my image. --> 
 
 ```{r choropleth2, message=FALSE, echo=FALSE, warning=FALSE, fig.align='center', fig.cap="**Choropleth 2:** Total Deaths from Comparison States"}
 
