@@ -116,7 +116,6 @@ state_choropleth(deathData2, title = "Total Deaths", legend = "Deaths")
 summaryData2 <- myData %>% rename(Deaths = "Total Death") %>% filter(jurisdiction %in% c("New Jersey", "Georgia", "Maryland", "Colorado", "Pennsylvania", "Tennessee", "Louisiana")) %>% summary("Deaths")
 print(summaryData2)
 
-
 ```
 
 
