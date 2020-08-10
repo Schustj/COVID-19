@@ -38,7 +38,7 @@ write.csv(covid19Data,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/Dth_by_st
 
 ```{r ggplotcovid, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", fig.align='center'}
 
-ggplot(covid19Data, aes(State, Deaths)) + geom_col(color = "black", fill = "indianred2") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + labs(title = "Midwest Coalition States COVID deaths", x = "State", y = "Deaths") + scale_y_continuous(labels = scales::number_format())
+ggplot(covid19Data, aes(State, Deaths)) + geom_col(color = "black", fill = "indianred2") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + labs(title = "Midwest Coalition States COVID deaths as of Feb-01-2020", x = "State", y = "Deaths") + scale_y_continuous(labels = scales::number_format())
 
 ```
 
@@ -55,7 +55,7 @@ write.csv(covid19Data2,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/Dth_by_s
 
 ```{r ggplotcovid2, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", fig.align='center'}
 
-ggplot(covid19Data2, aes(State, Deaths)) + geom_col(color = "black", fill = "lightblue") + labs(title = "Similar Population States COVID deaths", x = "State", y = "Deaths") + scale_y_continuous(labels = scales::number_format())
+ggplot(covid19Data2, aes(State, Deaths)) + geom_col(color = "black", fill = "lightblue") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + labs(title = "Similar Population States COVID deaths as of Feb-01-2020", x = "State", y = "Deaths") + scale_y_continuous(labels = scales::number_format())
 
 ```
 
@@ -76,7 +76,7 @@ write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/deaths_by_s
 
 ```{r choropleth, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", fig.align='center', fig.cap="**Choropleth 1:** Total Deaths from States in the Midwest Coalition"}
 
-state_choropleth(deathData, title = "Total Deaths", legend = "Deaths")
+state_choropleth(deathData, title = "Total Deaths due to COVID", legend = "Deaths")
 
 ```
 
@@ -106,7 +106,7 @@ write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/deaths_by_s
 
 ```{r choropleth2, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", fig.align='center', fig.cap="**Choropleth 2:** Total Deaths from Comparison States"}
 
-state_choropleth(deathData2, title = "Total Deaths", legend = "Deaths")
+state_choropleth(deathData2, title = "Total Deaths due to COVID", legend = "Deaths")
 
 ```
 
