@@ -42,7 +42,7 @@ write.csv(covid19Data,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/Dth_by_st
 
 ```{r ggplotcovid, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", fig.align='center'}
 
-ggplot(covid19Data, aes(State, Deaths)) + geom_col(color = "black", fill = "indianred2") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + labs(title = "Midwest Coalition States COVID deaths as of Feb-01-2020", x = "State", y = "Deaths") + scale_y_continuous(labels = scales::number_format())
+ggplot(covid19Data, aes(State, Deaths)) + geom_col(color = "black", fill = "indianred2") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + labs(title = "Midwest Coalition States COVID deaths as of Feb-01-2020", x = "State", y = "Deaths") + scale_y_continuous(labels = scales::number_format()) + coord_flip()
 
 ```
 
@@ -59,7 +59,7 @@ write.csv(covid19Data2,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/Dth_by_s
 
 ```{r ggplotcovid2, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", fig.align='center'}
 
-ggplot(covid19Data2, aes(State, Deaths)) + geom_col(color = "black", fill = "lightblue") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + labs(title = "Similar Population States COVID deaths as of Feb-01-2020", x = "State", y = "Deaths") + scale_y_continuous(labels = scales::number_format())
+ggplot(covid19Data2, aes(State, Deaths)) + geom_col(color = "black", fill = "lightblue") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + labs(title = "Similar Population States COVID deaths as of Feb-01-2020", x = "State", y = "Deaths") + scale_y_continuous(labels = scales::number_format()) + coord_flip()
 
 ```
 
@@ -88,7 +88,7 @@ state_choropleth(caseData, title = "Total Cases from COVID", legend = "Cases")
 
 ```{r summary, message=FALSE, echo=FALSE, warning=FALSE, include=FALSE}
 
-summaryData <- myData %>% filter(jurisdiction %in% c("Michigan", "Ohio", "Wisconsin", "Minnesota", "Illinois", "Indiana", "Kentucky")) %>% summary('Total Death') 
+summaryData <- myData %>% rename(Cases = `Total Cases`) %>% filter(jurisdiction %in% c("Michigan", "Ohio", "Wisconsin", "Minnesota", "Illinois", "Indiana", "Kentucky")) %>% summary('Cases') 
 print(summaryData)
 
 ```
