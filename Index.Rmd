@@ -34,7 +34,7 @@ covid19Data <- myData2 %>% select(`State`, `COVID19 Deaths`) %>% rename(Deaths =
 write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/Dth_by_state_midwest_coalition_data2.csv", row.names = FALSE)
 ```
 
- <!-- Preparing to create a bar plot of death data due to COVID for Midwest Coalition States. --> 
+ <!-- Preparing to create a bar plot of death data due to COVID for Midwest Coalition States. I used the States as my x-axis and my total deaths on my y-axis. Geom_bar() is telling my ggplot to make a bar graph. Lastly, you'll notice the labs() function and that is to give my graph labels and a title. --> 
 
 ```{r ggplotcovid, message=FALSE, echo=FALSE, warning=FALSE}
 
@@ -51,7 +51,7 @@ covid19Data2 <- myData2 %>% select(`State`, `COVID19 Deaths`) %>% rename(Deaths 
 write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/Dth_by_state_similar_pop_data2.csv", row.names = FALSE)
 ```
 
-<!-- Preparing to create a bar plot of death data due to COVID for Similar Population States. --> 
+<!-- Preparing to create a bar plot of death data due to COVID for Similar Population States. I used the States as my x-axis and my total deaths on my y-axis. Geom_bar() is telling my ggplot to make a bar graph. Lastly, you'll notice the labs() function and that is to give my graph labels and a title. Very similar to my midwest coalition code. --> 
 
 ```{r ggplotcovid2, message=FALSE, echo=FALSE, warning=FALSE}
 
