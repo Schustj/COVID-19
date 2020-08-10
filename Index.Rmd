@@ -63,7 +63,7 @@ ggplot(covid19Data2, aes(State, Deaths)) + geom_col(color = "black", fill = "lig
 
 ```
 
- <!-- In this chunk I am manipulating a data set into Midwest Coalition states and making a choropleth representation. I'm renaming "Total Death" to "Deaths" for simplicity in writing my code. I've filtered my data set into my 7 coalition states and changed the case to lower case with the str_to_lower function on jurisdiction. Lastly, I'm saving this csv into output folder now that I've manipulated the raw data. --> 
+ <!-- In this chunk I am manipulating a data set into Midwest Coalition states and making a choropleth representation. I'm renaming "Total Cases" to "Cases" for simplicity in writing my code. I've filtered my data set into my 7 coalition states and changed the case to lower case with the str_to_lower function on jurisdiction. Lastly, I'm saving this csv into output folder now that I've manipulated the raw data. --> 
 
 ```{r tidyup, message=FALSE, echo=FALSE, warning=FALSE}
 
@@ -93,7 +93,7 @@ print(summaryData)
 
 ```
 
- <!-- In this chunk I am manipulating a data set into comparison states and making a choropleth representation. I'm renaming "Total Death" to "Deaths" for simplicity in writing my code just like with my Midwest states. I've filtered my data set into my 7 similar pop states and changed the case to lower case with the str_to_lower function on jurisdiction. Lastly, I'm saving this csv into my output folder now that I've manipulated the raw data. --> 
+ <!-- In this chunk I am manipulating a data set into comparison states and making a choropleth representation. I'm renaming "Total Cases" to "Cases" for simplicity in writing my code just like with my Midwest states. I've filtered my data set into my 7 similar pop states and changed the case to lower case with the str_to_lower function on jurisdiction. Lastly, I'm saving this csv into my output folder now that I've manipulated the raw data. --> 
 
 ```{r tidyup2, message=FALSE, echo=FALSE, warning=FALSE}
 
