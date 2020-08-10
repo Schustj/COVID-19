@@ -38,7 +38,7 @@ write.csv(covid19Data,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/Dth_by_st
 
 ```{r ggplotcovid, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", fig.align='center'}
 
-ggplot(covid19Data, aes(State, Deaths)) + geom_col(color = "black", fill = "indianred2") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + labs(title = "Midwest Coalition States COVID deaths", x = "State", y = "Deaths")
+ggplot(covid19Data, aes(State, Deaths)) + geom_col(color = "black", fill = "indianred2") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + labs(title = "Midwest Coalition States COVID deaths", x = "State", y = "Deaths") + scale_y_continuous(labels = scales::number_format())
 
 ```
 
@@ -55,7 +55,7 @@ write.csv(covid19Data2,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/Dth_by_s
 
 ```{r ggplotcovid2, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", fig.align='center'}
 
-ggplot(covid19Data2, aes(State, Deaths)) + geom_col(color = "black", fill = "lightblue") + labs(title = "Similar Population States COVID deaths", x = "State", y = "Deaths")
+ggplot(covid19Data2, aes(State, Deaths)) + geom_col(color = "black", fill = "lightblue") + labs(title = "Similar Population States COVID deaths", x = "State", y = "Deaths") + scale_y_continuous(labels = scales::number_format())
 
 ```
 
