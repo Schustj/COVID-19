@@ -36,9 +36,9 @@ write.csv(covid19Data,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/Dth_by_st
 
  <!-- Preparing to create a bar plot of death data due to COVID for Midwest Coalition States. I used the States as my x-axis and my total deaths on my y-axis. Geom_col() is telling my ggplot to make a bar graph. Lastly, you'll notice the labs() function and that is to give my graph labels and a title. --> 
 
-```{r ggplotcovid, message=FALSE, echo=FALSE, warning=FALSE}
+```{r ggplotcovid, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", fig.align='center'}
 
-ggplot(covid19Data, aes(State, Deaths)) + geom_col() + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + labs(title = "Midwest Coalition States COVID deaths", x = "State", y = "Deaths")
+ggplot(covid19Data, aes(State, Deaths)) + geom_col(color = "black", fill = "indianred2") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + labs(title = "Midwest Coalition States COVID deaths", x = "State", y = "Deaths")
 
 ```
 
@@ -53,9 +53,9 @@ write.csv(covid19Data2,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/Dth_by_s
 
 <!-- Preparing to create a bar plot of death data due to COVID for Similar Population States. I used the States as my x-axis and my total deaths on my y-axis. Geom_col() is telling my ggplot to make a bar graph. Lastly, you'll notice the labs() function and that is to give my graph labels and a title. Very similar to my midwest coalition code. --> 
 
-```{r ggplotcovid2, message=FALSE, echo=FALSE, warning=FALSE}
+```{r ggplotcovid2, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", fig.align='center'}
 
-ggplot(covid19Data2, aes(State, Deaths)) + geom_col() + labs(title = "Similar Population States COVID deaths", x = "State", y = "Deaths")
+ggplot(covid19Data2, aes(State, Deaths)) + geom_col(color = "black", fill = "lightblue") + labs(title = "Similar Population States COVID deaths", x = "State", y = "Deaths")
 
 ```
 
@@ -74,7 +74,7 @@ write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/deaths_by_s
 
  <!-- In this chunk I'm taking my manipulated data and making my choropleth map for Midwest coalition states. I've given the graph a nice title and labeled my legend "Deaths" to give viewers a way to decipher my image. --> 
 
-```{r choropleth, message=FALSE, echo=FALSE, warning=FALSE, fig.align='center', fig.cap="**Choropleth 1:** Total Deaths from States in the Midwest Coalition"}
+```{r choropleth, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", fig.align='center', fig.cap="**Choropleth 1:** Total Deaths from States in the Midwest Coalition"}
 
 state_choropleth(deathData, title = "Total Deaths", legend = "Deaths")
 
@@ -104,7 +104,7 @@ write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/deaths_by_s
 
  <!-- In this chunk I'm taking my manipulated data and making my choropleth map for my selected comparison states. I've given the graph a nice title and labeled my legend "Deaths" to give viewers a way to decipher my image. --> 
 
-```{r choropleth2, message=FALSE, echo=FALSE, warning=FALSE, fig.align='center', fig.cap="**Choropleth 2:** Total Deaths from Comparison States"}
+```{r choropleth2, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", fig.align='center', fig.cap="**Choropleth 2:** Total Deaths from Comparison States"}
 
 state_choropleth(deathData2, title = "Total Deaths", legend = "Deaths")
 
