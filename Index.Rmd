@@ -10,10 +10,48 @@ library(choroplethr)
 library(choroplethrMaps)
 library(ggplot2)
 library(dplyr)
+library(knitr)
+library(kableExtra)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r importing, message = FALSE, echo = FALSE}
-
+data(state.regions)
+myData <- read_csv("raw_data/US_MAP_DATA.csv", skip = 2)
+myData2 <- read_csv("raw_data/Provisional_COVID-19_Death_Counts_by_Place_of_Death_and_State.csv")
 
 ```
+
+```{r tidyup, message=FALSE, echo=FALSE}
+
+deathData <- myData %>% 
+        rename(Deaths = "Total Death") %>%
+        filter(fips < 57, abbr != "US" & jurisdiction %in% c("Michigan", "Ohio", "Wisconsin", "Minnesota", "Illinois", "Indiana", "Kentucky")) %>%
+        summarise(region = str_to_lower(jurisdiction), value = Deaths)
+
+write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/Assignment-07/output/deaths_by_state.csv", row.names = FALSE)
+
+```
+
+```{r tidyup2, message=FALSE, echo=FALSE}
+
+deathData <- myData %>% 
+        rename(Cases = "Total Cases") %>%
+        filter(fips < 57, abbr != "US") %>%
+        summarise(region = str_to_lower(jurisdiction), value = Cases)
+
+write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/Assignment-07/output/deaths_by_state.csv", row.names = FALSE)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
