@@ -22,29 +22,39 @@ myData2 <- read_csv("raw_data/Provisional_COVID-19_Death_Counts_by_Place_of_Deat
 
 ```
 
-```{r tidyup, message=FALSE, echo=FALSE}
+```{r tidyup, message=FALSE, echo=FALSE, warning=FALSE}
 
 deathData <- myData %>% 
         rename(Deaths = "Total Death") %>%
-        filter(fips < 57, abbr != "US" & jurisdiction %in% c("Michigan", "Ohio", "Wisconsin", "Minnesota", "Illinois", "Indiana", "Kentucky")) %>%
+        filter(fips < 57, abbr != "US" & jurisdiction %in% c("Michigan", "Ohio", "Wisconsin", "Minnesota", "Illinois", "Indiana", "Kentucky") & !is.na(jurisdiction)) %>%
         summarise(region = str_to_lower(jurisdiction), value = Deaths)
 
-write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/Assignment-07/output/deaths_by_state.csv", row.names = FALSE)
+write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/deaths_by_state_midwest_coalition.csv", row.names = FALSE)
 
 ```
 
-```{r tidyup2, message=FALSE, echo=FALSE}
+```{r choropleth, message=FALSE, echo=FALSE, warning=FALSE, fig.align='center', fig.cap="**Choropleth 1:** Total Deaths from State in Midwest Coalition"}
 
-deathData <- myData %>% 
-        rename(Cases = "Total Cases") %>%
-        filter(fips < 57, abbr != "US") %>%
-        summarise(region = str_to_lower(jurisdiction), value = Cases)
-
-write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/Assignment-07/output/deaths_by_state.csv", row.names = FALSE)
+state_choropleth(deathData, title = "Total Deaths", legend = "Deaths")
 
 ```
 
+```{r tidyup2, message=FALSE, echo=FALSE, warning=FALSE}
 
+deathData2 <- myData %>% 
+        rename(Deaths = "Total Death") %>%
+        filter(fips < 57, abbr != "US" & jurisdiction %in% c("New Jersey", "Georgia", "Maryland", "Colorado", "Pennsylvania", "Tennessee", "Louisiana")) %>%
+        summarise(region = str_to_lower(jurisdiction), value = Deaths)
+
+write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/deaths_by_state_similar_pop.csv", row.names = FALSE)
+
+```
+
+```{r choropleth2, message=FALSE, echo=FALSE, warning=FALSE}
+
+state_choropleth(deathData2, title = "Total Deaths", legend = "Deaths")
+
+```
 
 
 
