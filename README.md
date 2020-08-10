@@ -10,10 +10,9 @@ This is a Summer 2020 Ferris State University project for BIOL 390 Reproducible 
 ## C.Hypothesis
 Hypothesis: On April 16, 2020 seven states joined together to form the Midwest Coalition to combat the spead of COVID 19. These states include Michigan, Ohio, Wisconsin, Minnesota, Illinois, Indiana, and Kentucky. My hypothesis is the Midwest Coalition has effectively reduced the spread of COVID since it's creation compared to other states with similar populations such as New Jersey, Georgia, Maryland, Colorado, Pennsylvania, Tennessee, and Louisiana.  
 ## D.Datasets used
-https://ourworldindata.org/covid-cases - Using Cases, and Deaths
 https://www.cdc.gov/covid-data-tracker/#cases - Using Cases, and Deaths
 https://data.cdc.gov/NCHS/Provisional-COVID-19-Death-Counts-by-Place-of-Deat/uggs-hy5q - Using COVID19 Deaths
 ## E.Description of analyses
 ## F.Conclusions
 ## G.Viewing this project
-The completed project files can be accessed online at (project's URL). The repo for this reproducible project is also publicly available at (your GitHub repo address).
+The completed project files can be accessed online at (project's URL). The repo for this reproducible project is also publicly available at (https://github.com/Schustj/COVID-19).
