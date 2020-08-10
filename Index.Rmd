@@ -1,5 +1,9 @@
 ---
 title: "Index.Rmd"
+author: "Jonathan Schuster"
+school: "Ferris State University"
+course: "BIOL 390 Reproducible Research"
+date: "08/10/2020"
 output: html_document
 ---
  <!-- This initial chunk is loading all of the packages I'll be utilizing for my COVID report. Example, I'll be using the package "choroplethr" to set up choropleth maps as a form of graph. --> 
