@@ -15,6 +15,8 @@ library(kableExtra)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+ <!-- This chunk is uploading all the databases to my Rmd file. Files from the CDC.   --> 
+
 ```{r importing, message = FALSE, echo = FALSE}
 data(state.regions)
 myData <- read_csv("raw_data/US_MAP_DATA.csv", skip = 2)
@@ -22,22 +24,37 @@ myData2 <- read_csv("raw_data/Provisional_COVID-19_Death_Counts_by_Place_of_Deat
 
 ```
 
+ <!-- In this chunk I am manipulating a data set into Midwest Coalition states and making a choropleth representation. --> 
+
 ```{r tidyup, message=FALSE, echo=FALSE, warning=FALSE}
 
 deathData <- myData %>% 
         rename(Deaths = "Total Death") %>%
-        filter(fips < 57, abbr != "US" & jurisdiction %in% c("Michigan", "Ohio", "Wisconsin", "Minnesota", "Illinois", "Indiana", "Kentucky") & !is.na(jurisdiction)) %>%
+        filter(fips < 57, abbr != "US" & jurisdiction %in% c("Michigan", "Ohio", "Wisconsin", "Minnesota", "Illinois", "Indiana", "Kentucky") & !is.na(fips)) %>%
         summarise(region = str_to_lower(jurisdiction), value = Deaths)
 
 write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/deaths_by_state_midwest_coalition.csv", row.names = FALSE)
 
 ```
 
-```{r choropleth, message=FALSE, echo=FALSE, warning=FALSE, fig.align='center', fig.cap="**Choropleth 1:** Total Deaths from State in Midwest Coalition"}
+ <!-- In this chunk I'm taking my manipulated data and making my choropleth map for Midwest coalition states. --> 
+
+```{r choropleth, message=FALSE, echo=FALSE, warning=FALSE, fig.align='center', fig.cap="**Choropleth 1:** Total Deaths from States in the Midwest Coalition"}
 
 state_choropleth(deathData, title = "Total Deaths", legend = "Deaths")
 
 ```
+
+ <!-- In this chunk I'm attempting to summarize the data to get an idea about the mean deaths for the Midwest coalition states. --> 
+
+```{r summary, message=FALSE, echo=FALSE, warning=FALSE, include=FALSE}
+
+summaryData <- myData %>% filter(jurisdiction %in% c("Michigan", "Ohio", "Wisconsin", "Minnesota", "Illinois", "Indiana", "Kentucky")) %>% summary('Total Death') 
+print(summaryData)
+
+```
+
+ <!-- In this chunk I am manipulating a data set into comparison states and making a choropleth representation. --> 
 
 ```{r tidyup2, message=FALSE, echo=FALSE, warning=FALSE}
 
@@ -50,13 +67,23 @@ write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/deaths_by_s
 
 ```
 
-```{r choropleth2, message=FALSE, echo=FALSE, warning=FALSE}
+ <!-- In this chunk I'm taking my manipulated data and making my choropleth map for my selected comparison states. --> 
+
+```{r choropleth2, message=FALSE, echo=FALSE, warning=FALSE, fig.align='center', fig.cap="**Choropleth 2:** Total Deaths from Comparison States"}
 
 state_choropleth(deathData2, title = "Total Deaths", legend = "Deaths")
 
 ```
 
+ <!-- In this chunk I'm attempting to summarize the data to get an idea about the mean deaths for the states I've selected to pair against the Midwest coalition states. --> 
 
+```{r summary2, message=FALSE, echo=FALSE, warning=FALSE, include=FALSE}
+
+summaryData2 <- myData %>% rename(Deaths = "Total Death") %>% filter(jurisdiction %in% c("New Jersey", "Georgia", "Maryland", "Colorado", "Pennsylvania", "Tennessee", "Louisiana")) %>% summary("Deaths")
+print(summaryData2)
+
+
+```
 
 
 
