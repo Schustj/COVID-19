@@ -24,6 +24,24 @@ myData2 <- read_csv("raw_data/Provisional_COVID-19_Death_Counts_by_Place_of_Deat
 
 ```
 
+ <!-- Manipulating data from myData2 from the CDC to show total deaths due to COVID in Midwest Coalition States --> 
+
+```{r data2stuff, message=FALSE, echo=FALSE, warning=FALSE}
+
+covid19Data <- myData2 %>% select(`Data as of`, `State`, `COVID19 Deaths`) %>% filter(State %in% c("Michigan", "Ohio", "Wisconsin", "Minnesota", "Illinois", "Indiana", "Kentucky") & !is.na(`COVID19 Deaths`))
+
+write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/Dth_by_state_midwest_coalition_data2.csv", row.names = FALSE)
+```
+
+ <!-- Manipulating data from myData2 from the CDC to show total deaths due to COVID in similar population States --> 
+
+```{r data2stuff2, message=FALSE, echo=FALSE, warning=FALSE}
+
+covid19Data2 <- myData2 %>% select(`Data as of`, `State`, `COVID19 Deaths`) %>% filter(State %in% c("New Jersey", "Georgia", "Maryland", "Colorado", "Pennsylvania", "Tennessee", "Louisiana") & !is.na(`COVID19 Deaths`))
+
+write.csv(deathData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/Dth_by_state_similar_pop_data2.csv", row.names = FALSE)
+```
+
  <!-- In this chunk I am manipulating a data set into Midwest Coalition states and making a choropleth representation. --> 
 
 ```{r tidyup, message=FALSE, echo=FALSE, warning=FALSE}
