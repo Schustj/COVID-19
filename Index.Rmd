@@ -1,10 +1,11 @@
 ---
 title: "Index.Rmd"
 author: "Jonathan Schuster"
-school: "Ferris State University"
-course: "BIOL 390 Reproducible Research"
 date: "08/10/2020"
-output: html_document
+output: 
+  html_document:
+    toc: TRUE
+    toc_depth: 5  
 ---
  <!-- This initial chunk is loading all of the packages I'll be utilizing for my COVID report. Example, I'll be using the package "choroplethr" to set up choropleth maps as a form of graph. --> 
 
@@ -17,11 +18,19 @@ library(ggplot2)
 library(dplyr)
 library(knitr)
 library(kableExtra)
+library(yaml)
 knitr::opts_chunk$set(echo = TRUE)
 ```
+### Abstract (tl;dr)
+Summer 2020 Ferris State University reproducible research project looking at the Midwest Coalition States COVID death numbers/case numbers compared to states with similar population sizes. 
+ 
+### Introduction
+This is a Summer 2020 Ferris State University project for BIOL 390 Reproducible research created by Jonathan Schuster. Data was found from several reputable datasets located from the CDC and used to better understand my hypothesis on the Midwest Coalition's COVID 19 response. R Studio was used to clean datasets, from the CDC, which were used to make visual reputations through graphs/tables on R Markdown.
 
- <!-- This chunk is uploading all the databases to my Rmd file. Files are from the CDC. I elected to use two different datasets from the CDC and you'll see below the ways I've elected to manipulate the datasets chosen.   --> 
+### Hypothesis
+Hypothesis: On April 16, 2020 seven states joined together to form the Midwest Coalition to combat the spead of COVID 19. These states include Michigan, Ohio, Wisconsin, Minnesota, Illinois, Indiana, and Kentucky. My hypothesis is the Midwest Coalition has effectively reduced the spread of COVID since it's creation compared to other states with similar populations such as New Jersey, Georgia, Maryland, Colorado, Pennsylvania, Tennessee, and Louisiana.
 
+ <!-- This chunk is uploading all the databases to my Rmd file. Files are from the CDC. I elected to use two different datasets from the CDC and you'll see below the ways I've elected to manipulate the datasets chosen.   -->
 ```{r importing, message = FALSE, echo = FALSE}
 data(state.regions)
 myData <- read_csv("raw_data/US_MAP_DATA.csv", skip = 2)
@@ -40,11 +49,22 @@ write.csv(covid19Data,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/Dth_by_st
 
  <!-- Preparing to create a bar plot of death data due to COVID for Midwest Coalition States. I used the States as my x-axis and my total deaths on my y-axis. Geom_col() is telling my ggplot to make a bar graph. Lastly, you'll notice the labs() function and that is to give my graph labels and a title. --> 
 
-```{r ggplotcovid, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", fig.align='center'}
+```{r ggplotcovid, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", out.extra='style="float:right; padding:10px"'}
 
 ggplot(covid19Data, aes(State, Deaths)) + geom_col(color = "black", fill = "indianred2") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + labs(title = "Midwest Coalition States COVID deaths as of Feb-01-2020", x = "State", y = "Deaths") + scale_y_continuous(labels = scales::number_format()) + coord_flip()
 
 ```
+
+
+### Total Death Analysis
+
+On April 16, 2020 seven states came together to "flatten the curve". These states include Michigan, Ohio, Wisconsin, Minnesota, Illinois, Indiana, and Kentucky. They referred this coalition as the Midwest Coalition. On the right you will find two different graphs. On the top (Red), which will contain data on total deaths in states from the Midwest Coalition from Feb 01, 2020. On the bottom (Blue), you will find total death data from seven Non-Coalition states which include New Jersey, Georgia, Maryland, Colorado, Pennsylvania, Tennessee, and Louisiana. 
+
+
+
+#### Total Death Midwest Coalition Analysis 
+
+Furthermore, investigating the graphics to the right we can see on average Midwest Coalition states saw fewer overall deaths. The state that saw the least deaths was Kentucky at ~ 700 deaths. The state with the most deaths came out to be Illinois at ~ 6,800 deaths. Surely due to more metropolitan areas. If we were to sum up all the deaths from Midwest Coalition States since February 01, 2020 we would get ~ 21,000 total deaths. 
 
  <!-- Manipulating data from myData2 from the CDC to show total deaths due to COVID in similar population States. I'm selecting 2 columns that help answer my hypothesis, State and COVID19 Deaths, and renaming COVID19 Deaths to a simpler name "Deaths". After renaming, I'm filtering my data to the similar population states I've selected for my report. Next, I use group_by() function to change my multiple entries of each state into one entry for each state. I use the summarize function to add all the values of Deaths into one number. Lastly, I'm running a function to remove any NA's that exist in my dataset. You'll notice I'm saving this data into a new folder "output" after I've manipulated it. --> 
 
@@ -57,11 +77,16 @@ write.csv(covid19Data2,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/Dth_by_s
 
 <!-- Preparing to create a bar plot of death data due to COVID for Similar Population States. I used the States as my x-axis and my total deaths on my y-axis. Geom_col() is telling my ggplot to make a bar graph. Lastly, you'll notice the labs() function and that is to give my graph labels and a title. Very similar to my midwest coalition code. --> 
 
-```{r ggplotcovid2, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", fig.align='center'}
+```{r ggplotcovid2, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", out.extra='style="float:right; padding:10px"'}
 
-ggplot(covid19Data2, aes(State, Deaths)) + geom_col(color = "black", fill = "lightblue") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + labs(title = "Similar Population States COVID deaths as of Feb-01-2020", x = "State", y = "Deaths") + scale_y_continuous(labels = scales::number_format()) + coord_flip()
+ggplot(covid19Data2, aes(State, Deaths)) + geom_col(color = "black", fill = "lightblue") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + labs(title = "Non-coalition States COVID deaths as of Feb-01-2020", x = "State", y = "Deaths") + scale_y_continuous(labels = scales::number_format()) + coord_flip()
 
 ```
+
+#### Total Death Non-Coalition Analysis
+
+Investigating Non-coalition states we can see slightly more overall deaths. The state that saw the least deaths was Tennessee at ~ 900 deaths. The state with the most deaths came out to be New Jersey at ~ 14,000 deaths. If we were to sum up all the deaths from Non-coalition States since February 01, 2020 we would get ~ 34,000 total deaths. That's over 10,000 deaths more than states residing in the Midwest Coalition.
+
 
  <!-- In this chunk I am manipulating a data set into Midwest Coalition states and making a choropleth representation. I'm renaming "Total Cases" to "Cases" for simplicity in writing my code. I've filtered my data set into my 7 coalition states and changed the case to lower case with the str_to_lower function on jurisdiction. Lastly, I'm saving this csv into output folder now that I've manipulated the raw data. --> 
 
@@ -69,29 +94,30 @@ ggplot(covid19Data2, aes(State, Deaths)) + geom_col(color = "black", fill = "lig
 
 caseData <- myData %>% 
         rename(Cases = "Total Cases") %>%
-        filter(fips < 57, abbr != "US" & jurisdiction %in% c("Michigan", "Ohio", "Wisconsin", "Minnesota", "Illinois", "Indiana", "Kentucky") & !is.na(fips)) %>%
-        summarise(region = str_to_lower(jurisdiction), value = Cases)
+        summarise(region = str_to_lower(jurisdiction), value = Cases) 
 
 write.csv(caseData,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/deaths_by_state_midwest_coalition.csv", row.names = FALSE)
 
 ```
 
+
+
+
+### Total Case Analysis 
+
+Up next, I'll be displaying information in the form of a choropleth map on total cases arising from Midwest coalition states, and Non-coalition states, respectively. Down below, you'll find two maps focusing on the coalition and non-coalition states.  
+
  <!-- In this chunk I'm taking my manipulated data and making my choropleth map for Midwest coalition states. I've given the graph a nice title and labeled my legend "Deaths" to give viewers a way to decipher my image. --> 
 
-```{r choropleth, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", fig.align='center', fig.cap="**Choropleth 1:** Total Deaths from States in the Midwest Coalition"}
+```{r choropleth, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", fig.align='center'}
 
-state_choropleth(caseData, title = "Total Cases from COVID", legend = "Cases")
-
-```
-
- <!-- In this chunk I'm attempting to summarize the data to get an idea about the mean deaths for the Midwest coalition states. --> 
-
-```{r summary, message=FALSE, echo=FALSE, warning=FALSE, include=FALSE}
-
-summaryData <- myData %>% rename(Cases = `Total Cases`) %>% filter(jurisdiction %in% c("Michigan", "Ohio", "Wisconsin", "Minnesota", "Illinois", "Indiana", "Kentucky")) %>% summary('Cases') 
-print(summaryData)
+state_choropleth(caseData, title = "Total Cases from COVID", legend = "Cases", zoom = c("michigan", "ohio", "wisconsin", "minnesota", "illinois", "indiana", "kentucky"))
 
 ```
+
+#### Total Cases Midwest Coalition Analysis
+
+
 
  <!-- In this chunk I am manipulating a data set into comparison states and making a choropleth representation. I'm renaming "Total Cases" to "Cases" for simplicity in writing my code just like with my Midwest states. I've filtered my data set into my 7 similar pop states and changed the case to lower case with the str_to_lower function on jurisdiction. Lastly, I'm saving this csv into my output folder now that I've manipulated the raw data. --> 
 
@@ -99,7 +125,6 @@ print(summaryData)
 
 caseData2 <- myData %>% 
         rename(Cases = "Total Cases") %>%
-        filter(fips < 57, abbr != "US" & jurisdiction %in% c("New Jersey", "Georgia", "Maryland", "Colorado", "Pennsylvania", "Tennessee", "Louisiana")) %>%
         summarise(region = str_to_lower(jurisdiction), value = Cases)
 
 write.csv(caseData2,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/deaths_by_state_similar_pop.csv", row.names = FALSE)
@@ -108,22 +133,55 @@ write.csv(caseData2,"C:/Users/Jonny/Documents/GitHub/COVID-19/output/deaths_by_s
 
  <!-- In this chunk I'm taking my manipulated data and making my choropleth map for my selected comparison states. I've given the graph a nice title and labeled my legend "Deaths" to give viewers a way to decipher my image. --> 
 
-```{r choropleth2, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", fig.align='center', fig.cap="**Choropleth 2:** Total Deaths from Comparison States"}
+```{r choropleth2, message=FALSE, echo=FALSE, warning=FALSE, out.width = "500px", fig.align='center'}
 
-state_choropleth(caseData2, title = "Total Cases from COVID", legend = "Cases")
+state_choropleth(caseData2, title = "Total Cases from COVID", legend = "Cases", zoom = c("new jersey", "georgia", "maryland", "colorado", "pennsylvania", "tennessee", "louisiana"))
 
 ```
+ 
+#### Total Cases Non-Coalition Analysis
+
+
+### Table Analysis
+
+#### Midwest Coalition States
+ 
+ <!-- In this chunk I'm attempting to summarize the data to get an idea about the mean deaths for the Midwest coalition states. --> 
+
+```{r summary, message=FALSE, echo=FALSE, warning=FALSE, include=TRUE}
+
+summaryData <- myData %>% rename(Cases = "Total Cases", Deaths = "Total Death") %>% filter(jurisdiction %in% c("Michigan", "Ohio", "Wisconsin", "Minnesota", "Illinois", "Indiana", "Kentucky")) %>% group_by(jurisdiction) %>% mutate(mean_case = mean(Cases), mean_death = mean(Deaths), min_case = min(Cases), min_death = min(Deaths), max_case = max(Cases), max_death = max(Deaths), sum_case = sum(Cases))
+
+table1 <- knitr::kable(summaryData %>% select(jurisdiction, mean_case, mean_death),caption = "Table 1: Summary of mean number of cases/deaths for Midwest Coalition States")
+kable_styling(table1, position = "right", latex_options = "striped", font_size = 14)
+```
+
+#### Non-coalition States
+
 
  <!-- In this chunk I'm attempting to summarize the data to get an idea about the mean deaths for the states I've selected to pair against the Midwest coalition states. --> 
 
-```{r summary2, message=FALSE, echo=FALSE, warning=FALSE, include=FALSE}
+```{r summary2, message=FALSE, echo=FALSE, warning=FALSE, include=TRUE}
 
-summaryData2 <- myData %>% rename(Cases = "Total Cases") %>% filter(jurisdiction %in% c("New Jersey", "Georgia", "Maryland", "Colorado", "Pennsylvania", "Tennessee", "Louisiana")) %>% summary("Cases")
-print(summaryData2)
+summaryData2 <- myData %>% rename(Cases = "Total Cases", Deaths = "Total Death") %>% filter(jurisdiction %in% c("New Jersey", "Georgia", "Maryland", "Colorado", "Pennsylvania", "Tennessee", "Louisiana")) %>% group_by(jurisdiction) %>% mutate(mean_case = mean(Cases), mean_death = mean(Deaths), min_case = min(Cases), min_death = min(Deaths), max_case = max(Cases), max_death = max(Deaths))
 
+table2 <- knitr::kable(summaryData2 %>% select(jurisdiction, mean_case, mean_death), caption = "Table 2: Summary of mean number of cases/deaths for Similar Population States")
+kable_styling(table2, position = "right", latex_options = "striped", font_size = 14)
 ```
 
+### Conclusion
 
+#### Discussion
+
+Some key points to note in this report. First, when selecting the non-coalition states I only considered total state populations. Each state varied between population differences anywhere from 2,000 - 1,000,000 population differences were used. For example, I used New Jersey compared to Michigan. New Jersey population is 8,958,000 and Michigan has 9,922,000. The difference comes out to 964,000. Additionally, I did not take into consideration population densities throughout each state. For example, being from Michigan I know a moajority of deaths/cases come from Detroit or Wayne County. I recognize that metropolitan area's will contain skewed data for each state. That being said this project is at an undergraduate level and I did not narrow my results as a factor. Lastly, I am new, or a beginner, to the R language. With that being said, my coding skills held me back from summarizing current COVID data to truly give accurate insights to whether or not the Midwest Coalition truly "flattened the curve" compared to states that did not collaberate ways to slow the progress of the disease.  
+
+### References
+
+[https://www.cdc.gov/covid-data-tracker/#cases](https://www.cdc.gov/covid-data-tracker/#cases) - Used Cases, and Deaths data
+
+[https://data.cdc.gov/NCHS/Provisional-COVID-19-Death-Counts-by-Place-of-Deat/uggs-hy5q](https://data.cdc.gov/NCHS/Provisional-COVID-19-Death-Counts-by-Place-of-Deat/uggs-hy5q) - Used COVID19 Death data
+
+[https://www.nationsonline.org/oneworld/US-states-population.htm](https://www.nationsonline.org/oneworld/US-states-population.htm) - Used to find seven states with similar population sizes as Midwest Coalition States
 
 
 

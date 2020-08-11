@@ -14,6 +14,8 @@ https://www.cdc.gov/covid-data-tracker/#cases - Using Cases, and Deaths
 
 https://data.cdc.gov/NCHS/Provisional-COVID-19-Death-Counts-by-Place-of-Deat/uggs-hy5q - Using COVID19 Deaths
 ## E.Description of analyses
+How I compared data and what I chose look at.
 ## F.Conclusions
+
 ## G.Viewing this project
-The completed project files can be accessed online at (project's URL). The repo for this reproducible project is also publicly available at (https://github.com/Schustj/COVID-19).
+The completed project files can be accessed online at the repo for this reproducible project is also publicly available at (https://github.com/Schustj/COVID-19).
