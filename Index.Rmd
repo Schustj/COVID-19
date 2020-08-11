@@ -7,7 +7,7 @@ output:
     toc: TRUE
     toc_depth: 5  
 ---
- <!-- This initial chunk is loading all of the packages I'll be utilizing for my COVID report. Example, I'll be using the package "choroplethr" to set up choropleth maps as a form of graph. --> 
+ <!-- This initial chunk is loading all of the packages I'll be utilizing for my COVID report. Example, I'll be using the package "choroplethr" to set up choropleth maps as a form of graph. Additionally, above you'll find I modified my YAML code to add a table of contents wit "toc:TRUE" and allowing it to add any header levels up to 5. Throughout this report you'll find some chunk options that formatted my images, and tables. Example, I used "fig.align=center" to center my image on the html document. --> 
 
 ```{r setup, include=FALSE, echo = FALSE}
 library(tidyverse)
@@ -117,7 +117,7 @@ state_choropleth(caseData, title = "Total Cases from COVID", legend = "Cases", z
 
 #### Total Cases Midwest Coalition Analysis
 
-
+Let's start with the visual colors. The legend tells us the numbers we are looking at describe the total amount of cases each state is seeing. The darker the color represents more cases recorded. The nice part about this graphic is the legend tells us the exact number of cases each state shows. The state in the Midwest coalition with the least reported cases is Kentucky at 34,758 cases. The state showing the most reported cases was Illinois with 193,998 cases. 
 
  <!-- In this chunk I am manipulating a data set into comparison states and making a choropleth representation. I'm renaming "Total Cases" to "Cases" for simplicity in writing my code just like with my Midwest states. I've filtered my data set into my 7 similar pop states and changed the case to lower case with the str_to_lower function on jurisdiction. Lastly, I'm saving this csv into my output folder now that I've manipulated the raw data. --> 
 
@@ -141,39 +141,46 @@ state_choropleth(caseData2, title = "Total Cases from COVID", legend = "Cases", 
  
 #### Total Cases Non-Coalition Analysis
 
+Working with the same parameters as above we now see the Non-coalition data on cases. The state with the least reported cases is Colorado at 50,324 cases. The state showing the most reported cases was Georgia with 213,427 cases. Looking at only the most and least recorded states we see how Non-coalition states reported more cases on both ends of the spectrum. 
 
 ### Table Analysis
 
 #### Midwest Coalition States
  
- <!-- In this chunk I'm attempting to summarize the data to get an idea about the mean deaths for the Midwest coalition states. --> 
+ <!-- In this chunk I'm attempting to summarize the data to get an idea about the mean deaths for the Midwest coalition states. Additionally, I'm renaming several columns with dplyr function rename(). After renaming, I elect to filter my results to my chosen 7 states. After filtering, I'm grouping my results by jurisdiction or the 7 states. After tidying up my results I shoot over to kable to create my table. Here I'm selecting the columns I want to present with the select() function. After, I'm adding a table caption and some other neat features like text size. --> 
 
 ```{r summary, message=FALSE, echo=FALSE, warning=FALSE, include=TRUE}
 
-summaryData <- myData %>% rename(Cases = "Total Cases", Deaths = "Total Death") %>% filter(jurisdiction %in% c("Michigan", "Ohio", "Wisconsin", "Minnesota", "Illinois", "Indiana", "Kentucky")) %>% group_by(jurisdiction) %>% mutate(mean_case = mean(Cases), mean_death = mean(Deaths), min_case = min(Cases), min_death = min(Deaths), max_case = max(Cases), max_death = max(Deaths), sum_case = sum(Cases))
+summaryData <- myData %>% rename(Cases = "Total Cases", Deaths = "Total Death", Deaths_per_100k = "Death_100k") %>% filter(jurisdiction %in% c("Michigan", "Ohio", "Wisconsin", "Minnesota", "Illinois", "Indiana", "Kentucky")) %>% group_by(jurisdiction)
 
-table1 <- knitr::kable(summaryData %>% select(jurisdiction, mean_case, mean_death),caption = "Table 1: Summary of mean number of cases/deaths for Midwest Coalition States")
+table1 <- knitr::kable(summaryData %>% select(Cases, Deaths, CasesInLast7Days, Deaths_per_100k),caption = "Table 1: Summary of number of cases/deaths and cases in the last 7 dats for Midwest Coalition States")
 kable_styling(table1, position = "right", latex_options = "striped", font_size = 14)
 ```
 
 #### Non-coalition States
 
 
- <!-- In this chunk I'm attempting to summarize the data to get an idea about the mean deaths for the states I've selected to pair against the Midwest coalition states. --> 
+ <!-- In this chunk I'm attempting to summarize the data to get an idea about the mean deaths for the states I've selected to pair against the Midwest coalition states. Additionally, I'm renaming several columns with dplyr function rename(). After renaming, I elect to filter my results to my chosen 7 states. After filtering, I'm grouping my results by jurisdiction or the 7 states. After tidying up my results I shoot over to kable to create my table. Here I'm selecting the columns I want to present with the select() function. After, I'm adding a table caption and some other neat features like text size. --> 
 
 ```{r summary2, message=FALSE, echo=FALSE, warning=FALSE, include=TRUE}
 
-summaryData2 <- myData %>% rename(Cases = "Total Cases", Deaths = "Total Death") %>% filter(jurisdiction %in% c("New Jersey", "Georgia", "Maryland", "Colorado", "Pennsylvania", "Tennessee", "Louisiana")) %>% group_by(jurisdiction) %>% mutate(mean_case = mean(Cases), mean_death = mean(Deaths), min_case = min(Cases), min_death = min(Deaths), max_case = max(Cases), max_death = max(Deaths))
+summaryData2 <- myData %>% rename(Cases = "Total Cases", Deaths = "Total Death", Deaths_per_100k = "Death_100k") %>% filter(jurisdiction %in% c("New Jersey", "Georgia", "Maryland", "Colorado", "Pennsylvania", "Tennessee", "Louisiana")) %>% group_by(jurisdiction)
 
-table2 <- knitr::kable(summaryData2 %>% select(jurisdiction, mean_case, mean_death), caption = "Table 2: Summary of mean number of cases/deaths for Similar Population States")
+table2 <- knitr::kable(summaryData2 %>% select(Cases, Deaths, CasesInLast7Days, Deaths_per_100k), caption = "Table 2: Summary of number of cases/deaths and cases in the last 7 days for Non-coalition States")
 kable_styling(table2, position = "right", latex_options = "striped", font_size = 14)
 ```
 
-### Conclusion
+### Conclusions
+
+Drawing up some conclusions over the tables and rest of the report. First, let's go over the tables. In the Midwest Coalition states we are looking at two new variables (Cases in the last 7 days, and Deaths per 100,000 people). If we get the mean "Cases in the last 7 days" we get ~ 6,613 new cases in the last 7 days for all seven coalition states combined. Looking at the "Deaths per 100,000" for coalition states we get a mean of 38 deaths per 100,000 people. When looking at the Non-coalition states "Cases in the last 7 days" and "Deaths per 100,000" we get mean values of ~ 7,826, and 68, respectively. So when comparing these results alone we see that Coalition states saw over 1,000 less cases on average compared to states without a coalition. When looking at deaths per 100,000 Coalition states saw over 30 less deaths on average per 100,000 compared to Non-coalition states. Looking back on our choropleths we saw Coalition states contained the state with the least number of reported cases due to COVID and Non-Coalition states contained the state with the highest total reported cases due to COVID. Lastly, when looking at our bar graphs we came up with 10,000 more deaths collectively from our Non-coalition states compared to that of our Midwest Coalition states. 
+
+#### Answering the Hypothesis
+
+Based on all of the results from the bar charts, choropleth maps, and table summaries. The formation of the Midwest Coalition has successfully responded to COVID in a positive way compared to states without a coalition. Coalition states have witnessed less reports of overall cases and less total deaths from the virus COVID 19. 
 
 #### Discussion
 
-Some key points to note in this report. First, when selecting the non-coalition states I only considered total state populations. Each state varied between population differences anywhere from 2,000 - 1,000,000 population differences were used. For example, I used New Jersey compared to Michigan. New Jersey population is 8,958,000 and Michigan has 9,922,000. The difference comes out to 964,000. Additionally, I did not take into consideration population densities throughout each state. For example, being from Michigan I know a moajority of deaths/cases come from Detroit or Wayne County. I recognize that metropolitan area's will contain skewed data for each state. That being said this project is at an undergraduate level and I did not narrow my results as a factor. Lastly, I am new, or a beginner, to the R language. With that being said, my coding skills held me back from summarizing current COVID data to truly give accurate insights to whether or not the Midwest Coalition truly "flattened the curve" compared to states that did not collaberate ways to slow the progress of the disease.  
+Some key points to note in this report. First, when selecting the non-coalition states I only considered total state populations. Each state varied between population differences anywhere from 2,000 - 1,000,000 population differences were used. For example, I used New Jersey compared to Michigan. New Jersey population is 8,958,000 and Michigan has 9,922,000. The difference comes out to 964,000. Additionally, I did not take into consideration population densities throughout each state. For example, being from Michigan I know a majority of deaths/cases come from Detroit or Wayne County. I recognize that metropolitan area's will contain skewed data for each state. That being said this project is at an undergraduate level and I did not narrow my results as a factor. Another point to mention, would be the lack of research on whether or not the selected Non-coalition states actually do reside in a coalition (Just not in the Midwest coalition). Lastly, I am new, or a beginner, to the R language. With that being said, my coding skills held me back from summarizing current COVID data to truly give accurate insights to whether or not the Midwest Coalition truly "flattened the curve" compared to states that did not collaborate ways to slow the progress of the disease.  
 
 ### References
 
