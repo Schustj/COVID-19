@@ -403,7 +403,7 @@ summary {
 </ul>
 </div>
 
-<p><!-- This initial chunk is loading all of the packages I'll be utilizing for my COVID report. Example, I'll be using the package "choroplethr" to set up choropleth maps as a form of graph. --></p>
+<p><!-- This initial chunk is loading all of the packages I'll be utilizing for my COVID report. Example, I'll be using the package "choroplethr" to set up choropleth maps as a form of graph. Additionally, above you'll find I modified my YAML code to add a table of contents wit "toc:TRUE" and allowing it to add any header levels up to 5. Throughout this report you'll find some chunk options that formatted my images, and tables. Example, I used "fig.align=center" to center my image on the html document. --></p>
 <div id="abstract-tldr" class="section level3">
 <h3>Abstract (tl;dr)</h3>
 <p>Summer 2020 Ferris State University reproducible research project looking at the Midwest Coalition States COVID death numbers/case numbers compared to states with similar population sizes.</p>
@@ -457,7 +457,7 @@ summary {
 <h3>Table Analysis</h3>
 <div id="midwest-coalition-states" class="section level4">
 <h4>Midwest Coalition States</h4>
-<p><!-- In this chunk I'm attempting to summarize the data to get an idea about the mean deaths for the Midwest coalition states. --></p>
+<p><!-- In this chunk I'm attempting to summarize the data to get an idea about the mean deaths for the Midwest coalition states. Additionally, I'm renaming several columns with dplyr function rename(). After renaming, I elect to filter my results to my chosen 7 states. After filtering, I'm grouping my results by jurisdiction or the 7 states. After tidying up my results I shoot over to kable to create my table. Here I'm selecting the columns I want to present with the select() function. After, I'm adding a table caption and some other neat features like text size. --></p>
 <table class="table" style="font-size: 14px; margin-right: 0; margin-left: auto">
 <caption style="font-size: initial !important;">
 Table 1: Summary of number of cases/deaths and cases in the last 7 dats for Midwest Coalition States
@@ -606,7 +606,7 @@ Wisconsin
 </div>
 <div id="non-coalition-states" class="section level4">
 <h4>Non-coalition States</h4>
-<!-- In this chunk I'm attempting to summarize the data to get an idea about the mean deaths for the states I've selected to pair against the Midwest coalition states. -->
+<!-- In this chunk I'm attempting to summarize the data to get an idea about the mean deaths for the states I've selected to pair against the Midwest coalition states. Additionally, I'm renaming several columns with dplyr function rename(). After renaming, I elect to filter my results to my chosen 7 states. After filtering, I'm grouping my results by jurisdiction or the 7 states. After tidying up my results I shoot over to kable to create my table. Here I'm selecting the columns I want to present with the select() function. After, I'm adding a table caption and some other neat features like text size. -->
 <table class="table" style="font-size: 14px; margin-right: 0; margin-left: auto">
 <caption style="font-size: initial !important;">
 Table 2: Summary of number of cases/deaths and cases in the last 7 days for Non-coalition States
